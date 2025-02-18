@@ -1,0 +1,24 @@
+{
+  "name": "gaze-tracker-extension",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "parcel watch ./manifest.json --host localhost",
+    "build": "parcel build ./manifest.json --no-cache --no-optimize",
+    "dev" : "parcel build ./manifest.json --no-cache --detailed-report"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "open": "^10.1.0",
+    "regenerator-runtime": "^0.14.1",
+    "seeso": "^0.2.1"
+  },
+  "type": "module",
+  "devDependencies": {
+    "@parcel/config-webextension": "^2.13.3",
+    "parcel": "^2.13.3"
+  }
+}
