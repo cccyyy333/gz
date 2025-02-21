@@ -2,15 +2,14 @@
   "manifest_version": 3,
   "name": "Seeso Extension",
   "version": "1.0",
-  "permissions": ["activeTab", "tabs"],
-  "host_permissions": ["https://*/*"],
+  "permissions": ["activeTab", "tabs", "scripting"],
+  "host_permissions": ["https://*/*", "http://*/*"],
   "background": {
-    "service_worker": "background.js",
-    "type": "module"
+    "service_worker": "background.js"
   },
   "content_scripts": [
     {
-      "matches": ["https://*/*"],
+      "matches": ["<all_urls>"],
       "js": ["content.js"]
     }
   ],
@@ -19,8 +18,11 @@
   },
   "web_accessible_resources": [
     {
-      "resources": ["showGaze.js", "seeso/*", "index.html"],
+      "resources": ["index.html","content.js","sandbox.html"],
       "matches": ["<all_urls>"]
     }
-  ]
+  ],
+  "sandbox": {
+    "pages": ["sandbox.html"]
+  }
 }

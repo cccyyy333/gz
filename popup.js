@@ -1,9 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const startTrackingBtn = document.getElementById("startTracking");
+  document.getElementById("startTracking").addEventListener("click", () => {
+    console.log("Start Tracking 버튼 클릭됨!");
 
-
-  startTrackingBtn.addEventListener("click", () => {
-    //chrome.runtime.sendMessage({ action: "start" });
-    chrome.tabs.create({ url: chrome.runtime.getURL("index.html") });
+    // background.js에 메시지 전송
+    chrome.runtime.sendMessage({ action: "startTracking" });
   });
 });

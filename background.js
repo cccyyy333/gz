@@ -1,33 +1,25 @@
+console.log("background.js 실행됨!");
 
-import EasySeeSo from './node_modules/seeso/easy-seeso.js';
-const script = document.createElement('script');
-script.src = chrome.runtime.getURL('showGaze.js'); 
-(document.head || document.documentElement).appendChild(script);
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (message.action === "startTracking") {
+    console.log("popup에서 startTracking 메시지 수신!");
 
+    // 현재 활성 탭 가져오기
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+      if (tabs.length === 0) return;
 
-const licenseKey = "dev_731p0anvsp0p3jcezqy52tgid4dk29ofju76hgam"
+      let tab = tabs[0];
+      console.log("선택된 탭 ID:", tab.id);
 
-
-
-function onGaze(gazeInfo) {
-  showGaze(gazeInfo)
-}
-
-
-function onDebug(FPS, latency_min, latency_max, latency_avg){
-}
-
-async function main() {
-  const seeSo = new EasySeeSo();
-  await seeSo.init(licenseKey,
-    () => {
-    seeSo.setMonitorSize(13);
-    seeSo.setFaceDistance(40);
-    seeSo.setCameraPosition(window.outerWidth / 2, true);
-    seeSo.startTracking(onGaze, onDebug)
-          }, // callback when init succeeded.
-    () => console.log("callback when init failed"),  // callback when init failed.
-)
-}
-
-main();
+      // content.js 실행
+      chrome.scripting.executeScript({
+        target: { tabId: tab.id },
+        files: ["./content.js"]
+      }).then(() => {
+        console.log("content.js 실행 성공!");
+      }).catch((error) => {
+        console.error("content.js 실행 실패:", error);
+      });
+    });
+  }
+});
