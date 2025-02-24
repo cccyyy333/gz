@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "start": "parcel watch ./manifest.json --host localhost",
-    "build": "PARCEL_WORKERS=0 parcel build ./manifest.json --no-cache --no-optimize",
+    "build": "parcel build ./manifest.json --no-cache --no-optimize",
     "dev" : "parcel build ./manifest.json --no-cache --detailed-report"
   },
   "keywords": [],
